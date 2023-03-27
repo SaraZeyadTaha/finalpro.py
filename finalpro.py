@@ -2,8 +2,8 @@ import random
 
 
 class Course:
-    def __init__(self, course_name, course_level):
-        self.course_id = random.randint(1000000, 9999999)
+    def __init__(self, course_id, course_name, course_level):
+        self.course_id = course_id
         self.course_name = course_name
         self.course_level = course_level
 
@@ -39,7 +39,8 @@ class Student:
 
     def add_course(self, course):
         if student_list[i].get_level() in course.course_level:
-            self.__student_course.append(course)
+            student_list[i].get_course().append(course.course_name)
+            #self.__student_course.append(course.course_name)
             print(" Done ")
         else:
             print("student_class as same as course_class")
@@ -105,16 +106,18 @@ while x == 1:
 
         print("All Student :")
         for i in range(len(student_list)):
-            print(" name : " + " " + student_list[i].get_name() + "   " + " level : " + "  " + student_list[i].get_level())
+            print(" name : " + " " + student_list[i].get_name() + "   " + " level : " + "  " + student_list[i].get_level()+"  courses: ")
+            print(student_list[i].get_course())
 
     if choice == 5:
         name_cl = input("enter class name :")
+        id = input("enter course id: ")
         while True:
             level = input("select course_level (A-B-C)")
             if level == "a" or level == "A" or level == "b" or level == "B" or level == "c" or level == "C":
                 level_co = level
                 break
-        course_list.append(Course(course_name=name_cl, course_level=level))
+        course_list.append(Course(course_name=name_cl, course_id=id, course_level=level))
         print("course saved successfully")
 
     if choice == 6:
@@ -122,10 +125,10 @@ while x == 1:
         num = input("enter student number want to add course")
         for i in range(len(student_list)):
             if num in student_list[i].get_number():
-                id = int(input("enter course id: "))
+                id = input("enter course id: ")
                 for j in range(len(course_list)):
-                    if id == course_list[i].course_id:
-                        student_list[i].add_course(course_list[i].course_name)
+                    if id == course_list[j].course_id:
+                        student_list[i].add_course(course=course_list[j])
                         v = 0
                         print("done")
 
